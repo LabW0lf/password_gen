@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="stylesheet_pg.css">
+    <style>
+        /* Optional: Style for the copy button */
+        #copy {
+            transition: background-color 0.3s ease;
+        }
+        .copied {
+            background-color: green;
+            color: white;
+        }
+        .copied:hover {
+            background-color: darkgreen; /* Dark green on hover */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Password Generator</h1>
+
+    <label for="difficulty">Choose Password Difficulty (1-4):</label>
+    <input type="number" id="difficulty" min="1" max="4" required>
+
+    <label for="length">Choose Password Length:</label>
+    <input type="number" id="length" min="1" required>
+
+    <button id="generate">Generate Password</button>
+    <button id="copy">Copy to Clipboard</button>
+    <h2 id="result"></h2>
+    <hr>
+    <h3 style="color: darkred">Made By Kerem Ceylan</h3>
+</div>
+
+<script src="pg_code.js"></script>
+<script>
+    document.getElementById('copy').addEventListener('click', function() {
+        // Get the text from the result element
+        const password = document.getElementById('result').innerText;
+
+        if (!password) {
+            return; // Do nothing if there's no password
+        }
+
+        // Create a temporary textarea element to hold the text
+        const textarea = document.createElement('textarea');
+        textarea.value = password;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        // Change button color and text
+        const copyButton = document.getElementById('copy');
+        copyButton.classList.add('copied');
+        copyButton.innerText = 'Copied';
+
+        // Optional: Reset the button after a few seconds
+        setTimeout(() => {
+            copyButton.classList.remove('copied');
+            copyButton.innerText = 'Copy to Clipboard';
+        }, 2000); // Reset after 2 seconds
+    });
+</script>
+</body>
+</html>
